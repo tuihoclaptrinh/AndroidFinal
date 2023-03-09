@@ -1,4 +1,4 @@
-package platinum.box;
+package platinum.box.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -14,7 +14,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.transition.SlideDistanceProvider;
+import platinum.box.R;
+import platinum.box.adapters.SliderAdapter;
 
 public class OnBoardActivity extends AppCompatActivity {
 
