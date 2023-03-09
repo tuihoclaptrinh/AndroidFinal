@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "124931813303",
+    "project_id": "ecommerce-app-a016f",
+    "storage_bucket": "ecommerce-app-a016f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124931813303:android:ba2ea797bddac431f8c232",
+        "android_client_info": {
+          "package_name": "platinum.box"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124931813303-8425ln524gmmc8qmtua2ul8e6jmqmc8p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP39SqNUkfIeQ8NMfqWdqFjL37oNn1w-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124931813303-8425ln524gmmc8qmtua2ul8e6jmqmc8p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
