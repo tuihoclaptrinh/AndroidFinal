@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -25,7 +26,9 @@ import java.util.List;
 
 import platinum.box.R;
 import platinum.box.adapters.CategoryAdapter;
+import platinum.box.adapters.NewProductsAdapter;
 import platinum.box.models.CategoyModel;
+import platinum.box.models.NewProductsModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,10 +37,13 @@ import platinum.box.models.CategoyModel;
  */
 public class HomeFragment extends Fragment {
 
-    RecyclerView catRecyclerView;
-    // category recycleView
+    RecyclerView catRecyclerView, newProductRecyclerView;
+    // category recyclerView
     CategoryAdapter categoryAdapter;
     List<CategoyModel> categoyModelList;
+    // new product recyclerView
+    NewProductsAdapter newProductsAdapter;
+    List<NewProductsModel> newProductsModelList;
     // FireStore
     FirebaseFirestore db;
 
@@ -52,6 +58,7 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         catRecyclerView = root.findViewById(R.id.rec_category);
+        newProductRecyclerView = root.findViewById(R.id.new_product_rec);
 
         db = FirebaseFirestore.getInstance();
 
@@ -69,7 +76,7 @@ public class HomeFragment extends Fragment {
         // Category
         catRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL,false));
         categoyModelList = new ArrayList<>();
-        categoryAdapter = new CategoryAdapter(getActivity(), categoyModelList);
+        categoryAdapter = new CategoryAdapter(getContext(), categoyModelList);
         catRecyclerView.setAdapter(categoryAdapter);
 
         db.collection("Category")
@@ -84,6 +91,30 @@ public class HomeFragment extends Fragment {
                                 categoryAdapter.notifyDataSetChanged();
                             }
                         } else {
+                            Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+        // New products
+        newProductRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+        newProductsModelList = new ArrayList<>();
+        newProductsAdapter = new NewProductsAdapter(getContext(), newProductsModelList);
+        newProductRecyclerView.setAdapter(newProductsAdapter);
+
+        db.collection("NewProducts")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                NewProductsModel newProductsModel = document.toObject(NewProductsModel.class);
+                                newProductsModelList.add(newProductsModel);
+                                newProductsAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), "" + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
